@@ -176,3 +176,113 @@ end;
 $$
 drop procedure displayGeneral;
 call  displayGeneral("employee", "branch","mumbai"); 
+
+-- ex of out param 
+delimiter $$
+create procedure outProc(OUT cnt INT)
+BEGIN
+	select count(emp_id) into cnt from employee;
+END;
+$$
+
+-- session variable 
+SET @num_employee = 0;
+CALL outProc(@num_employee);
+select @num_employee;
+
+-- Triggers 
+/*
+DB : proc --- salary update ---update/insert/delete 
+employee 
+
+employee_log (id,old_salary, new_salary, date , user)  --- 
+
+--- all log records --- proc
+*/
+
+/*
+create trigger <trigger_name> 
+BEFORE UPDATE ON employee
+FOR EACH ROW ---> 
+BEGIN
+	--sql : insert record in employee_log 
+END
+*/
+
+create table employee_log (id int primary key auto_increment,old_salary double, new_salary double, dateOfOp date , username varchar(255) );
+
+DELIMITER $$ 
+create trigger emp_salary_update_trigger
+BEFORE UPDATE ON employee
+FOR EACH ROW
+BEGIN
+		INSERT INTO employee_log(old_salary,new_salary,dateOfOp,username) 
+		values (OLD.salary,NEW.salary,now(), user()) ;
+END;
+$$
+drop trigger emp_salary_update_trigger;
+
+update employee SET salary=200000 where emp_id=2;
+
+select user();
+select current_user();
+select session_user();
+
+-- views 
+/* create view to hide salary info from employee table */
+
+create or replace view employee_details AS
+select emp_id,emp_name,branch,department 
+from employee
+where department <> 'FINANCE';
+
+/* NO GRANT ON EMPLOYEE 
+   GRANT ON employee_details
+*/
+
+select * from employee_details; 
+
+-- functions 
+/* functions can return a value (must return a value) 
+   procedures cannot return a value(workaround-use OUT param)
+*/
+DELIMITER $$ 
+create function emp_func(param_id int)  RETURNS double
+DETERMINISTIC 
+BEGIN
+    declare esal double;
+    
+	select salary into esal
+    from employee
+    where emp_id = param_id;
+
+	return esal;
+END
+$$ 
+
+DELIMITER $$ 
+create function current_date_func() returns date 
+NOT DETERMINISTIC
+BEGIN
+	declare curr date; 
+    select NOW() into curr; 
+	return curr;
+END;
+$$ 
+drop function current_date_func;
+/*
+select NOW() 
+RAND() 
+*/
+-- calling the func
+select emp_func(3) AS "Salary value";
+select current_date_func() AS "CURRENT_DATE";
+
+
+
+set global log_bin_trust_function_creators = 1;
+ /*
+ 1	7	12:15:01	set global log_bin_trust_function_creators = 1	0 row(s) affected, 1 warning(s):
+ 1287 '@@log_bin_trust_function_creators' is deprecated and will be removed in a future release.	0.093 sec
+ */
+

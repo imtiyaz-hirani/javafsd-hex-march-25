@@ -261,9 +261,8 @@ END
 $$ 
 
 DELIMITER $$ 
-create function current_date_func() returns date 
-NOT DETERMINISTIC
-BEGIN
+create function current_date_func() returns date     -- by default, NOT DETERMINISTIC
+ BEGIN
 	declare curr date; 
     select NOW() into curr; 
 	return curr;
@@ -280,9 +279,16 @@ select current_date_func() AS "CURRENT_DATE";
 
 
 
-set global log_bin_trust_function_creators = 1;
+-- set global log_bin_trust_function_creators = 1;
  /*
  1	7	12:15:01	set global log_bin_trust_function_creators = 1	0 row(s) affected, 1 warning(s):
  1287 '@@log_bin_trust_function_creators' is deprecated and will be removed in a future release.	0.093 sec
  */
 
+/*
+A routine is considered “deterministic” if it always produces the same result for the same input parameters, 
+and “not deterministic” otherwise. If neither DETERMINISTIC nor NOT DETERMINISTIC is given in the routine definition, 
+the default is NOT DETERMINISTIC. 
+
+To declare that a function is deterministic, you must specify DETERMINISTIC explicitly.
+*/

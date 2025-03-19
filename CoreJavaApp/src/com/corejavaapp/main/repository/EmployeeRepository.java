@@ -2,6 +2,8 @@ package com.corejavaapp.main.repository;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,14 +24,14 @@ public class EmployeeRepository {
 		/*Step 1: Load the driver */
 		try {
 			Class.forName(driver);
-			System.out.println("DRIVER LOADED!!!!");
+			//System.out.println("DRIVER LOADED!!!!");
 		} catch (ClassNotFoundException e) {
 			System.out.println("DRIVER LOADING FAILED!!!!");
 		}
 		/* Step 2: Establish connection */
 		try {
 			con = DriverManager.getConnection(url, userDb, dbPass);
-			System.out.println("CONNECTION ESTABLISHED...");
+			//System.out.println("CONNECTION ESTABLISHED...");
 		} catch (SQLException e) {
 			System.out.println("CONNECTION iSSUE...");
 		}
@@ -39,7 +41,7 @@ public class EmployeeRepository {
 		/* Close the connection*/
 		try {
 			con.close();
-			System.out.println("connection closed...");
+			//System.out.println("connection closed...");
 		} catch (SQLException e) {
 			 System.out.println(e.getMessage());	
 		}
@@ -63,8 +65,42 @@ public class EmployeeRepository {
 	
 	public List<Employee> getEmployeeList() {
 		dbConnect();
-		
+		String sql="select * from employee";
+		List<Employee> list = new ArrayList<>(); 
+		try {
+			/* Step A: Prepare the statement */
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			/*Step B: Execute the statement */
+			ResultSet rst =  pstmt.executeQuery();
+			while(rst.next()) { //i will stay in the loop as long as the record exists
+				int id = rst.getInt("emp_id");
+				String name = rst.getString("emp_name");
+				String branch = rst.getString("branch");
+				String department = rst.getString("department");
+				double salary = rst.getDouble("salary");
+				
+				//create obj of employee and attach above values to it
+				Employee e = new Employee(
+						id,
+						name,
+						branch,
+						department,
+						salary);
+				
+				//save this obj e in list before it gets replaced by second record
+				list.add(e);
+			}
+			dbClose();
+			return list; 
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
 		dbClose();
 		return empList; 
 	}
 }
+
+/*
+ * executeQuery(): select --- ResultSet
+ * executeUpdate() : insert, update,delete 
+ * */

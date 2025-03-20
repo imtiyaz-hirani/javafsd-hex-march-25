@@ -1,12 +1,17 @@
 package com.corejavaapp.main;
 
+import java.util.List;
 import java.util.Scanner;
 
 import com.corejavaapp.main.controller.EmployeeController;
+import com.corejavaapp.main.controller.ProjectController;
+import com.corejavaapp.main.model.Employee;
+import com.corejavaapp.main.model.Project;
 
 public class App {
 	public static void main(String[] args) {
 		EmployeeController employeeController = new EmployeeController();
+		ProjectController projectController = new ProjectController(); 
 		
 		Scanner sc = new Scanner(System.in);
 		while(true) {
@@ -15,6 +20,7 @@ public class App {
 			System.out.println("2. Filter by branch,department");
 			System.out.println("3. Add Employee with Address");
 			System.out.println("4. Assign project to employee");
+			System.out.println("5. Fetch project for employee");
 			System.out.println("0. To Exit");
 			int input = sc.nextInt();
 			if(input ==0) {
@@ -56,7 +62,10 @@ public class App {
 				System.out.println("Employee added with address to DB..");
 				break;
 			case 4:
-				
+				employeeController.displayEmployeeRecord();
+				projectController.displayProjectRecord();
+				employeeController.assignProject();
+				System.out.println("Project assigned to employee..");
 				break; 
 			}
 		}

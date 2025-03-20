@@ -10,6 +10,7 @@ import java.util.List;
 
 import com.corejavaapp.main.model.Address;
 import com.corejavaapp.main.model.Employee; //ctrl + shift + O
+import com.corejavaapp.main.model.EmployeeProject;
 
 public class EmployeeRepository {
 	
@@ -134,6 +135,25 @@ public class EmployeeRepository {
 			pstmt.setInt(6, employee.getAddress().getId());
 			pstmt.executeUpdate();
 		} catch (SQLException e) { 
+			e.printStackTrace();
+		}
+		dbClose();
+	}
+
+	public void assignProject(EmployeeProject employeeProject, int empId, int projectId) {
+		dbConnect();
+		String sql="insert into employee_project values (?,?,?,?)";
+		
+		PreparedStatement pstmt;
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, employeeProject.getId());
+			pstmt.setInt(2, empId);
+			pstmt.setInt(3, projectId);
+			//convert date to string as it is varchar in DB
+			pstmt.setString(4, employeeProject.getDateOfAssign().toString()); 
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		dbClose();

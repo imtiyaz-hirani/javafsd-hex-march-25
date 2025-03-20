@@ -11,6 +11,7 @@ import com.corejavaapp.main.service.EmployeeService;
 public class EmployeeController {
 
 	EmployeeService employeeService = new EmployeeService();
+	Scanner sc = new Scanner(System.in);
 	
 	public void displayEmployeeRecord() {
 		List<Employee> empList =  employeeService.getEmployees();
@@ -41,7 +42,7 @@ public class EmployeeController {
 
 	public void addEmployee() {
 		 /*Take input from User */
-		Scanner sc = new Scanner(System.in);
+		
 		System.out.println("Enter name");
 		String name = sc.next();
 		System.out.println("Enter branch");
@@ -76,6 +77,15 @@ public class EmployeeController {
 	
 		employeeService.addEmployee(employee); 
 		
+	}
+
+	public void assignProject() {
+		 System.out.println("Enter employee id");
+		 int empId = sc.nextInt();
+		 System.out.println("Enter project id");
+		 int projectId = sc.nextInt();
+		 
+		 employeeService.assignProject(empId,projectId);
 	}
 }
 

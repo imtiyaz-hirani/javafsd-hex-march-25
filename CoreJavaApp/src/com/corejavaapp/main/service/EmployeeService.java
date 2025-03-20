@@ -1,10 +1,13 @@
 package com.corejavaapp.main.service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Stream;
 
 import com.corejavaapp.main.model.Employee;
+import com.corejavaapp.main.model.EmployeeProject;
 import com.corejavaapp.main.repository.EmployeeRepository;
+import com.corejavaapp.main.utility.IdUtil;
 
 public class EmployeeService {
 	EmployeeRepository employeeRepository = new EmployeeRepository();
@@ -40,6 +43,16 @@ public class EmployeeService {
 
 	public void addEmployee(Employee employee) {
 		 employeeRepository.addEmployee(employee);
+	}
+
+	public void assignProject(int empId, int projectId) {
+		int id  = new IdUtil().getRandomId(); 
+		EmployeeProject employeeProject = new EmployeeProject();
+		employeeProject.setId(id);
+		employeeProject.setDateOfAssign(LocalDate.now());
+		
+		employeeRepository.assignProject(employeeProject,empId,projectId);
+		
 	}
 
 }

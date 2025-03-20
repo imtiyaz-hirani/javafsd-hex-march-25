@@ -14,6 +14,7 @@ public class App {
 			System.out.println("1. Fetch all employees");
 			System.out.println("2. Filter by branch,department");
 			System.out.println("3. Add Employee with Address");
+			System.out.println("4. Assign project to employee");
 			System.out.println("0. To Exit");
 			int input = sc.nextInt();
 			if(input ==0) {
@@ -54,6 +55,9 @@ public class App {
 				employeeController.addEmployee();
 				System.out.println("Employee added with address to DB..");
 				break;
+			case 4:
+				
+				break; 
 			}
 		}
 		sc.close();

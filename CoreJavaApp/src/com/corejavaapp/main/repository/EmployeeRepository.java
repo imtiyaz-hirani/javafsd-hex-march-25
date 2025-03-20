@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.corejavaapp.main.model.Address;
 import com.corejavaapp.main.model.Employee; //ctrl + shift + O
 
 public class EmployeeRepository {
@@ -65,7 +66,7 @@ public class EmployeeRepository {
 	
 	public List<Employee> getEmployeeList() {
 		dbConnect();
-		String sql="select * from employee";
+		String sql="select * from employee e JOIN address a ON e.address_id=a.id";
 		List<Employee> list = new ArrayList<>(); 
 		try {
 			/* Step A: Prepare the statement */
@@ -78,6 +79,14 @@ public class EmployeeRepository {
 				String branch = rst.getString("branch");
 				String department = rst.getString("department");
 				double salary = rst.getDouble("salary");
+				String city = rst.getString("city");
+				String pincode  = rst.getString("pincode");
+				int addressId = rst.getInt("id");
+				
+				Address address = new Address(
+						addressId,
+						city,
+						pincode);
 				
 				//create obj of employee and attach above values to it
 				Employee e = new Employee(
@@ -85,7 +94,8 @@ public class EmployeeRepository {
 						name,
 						branch,
 						department,
-						salary);
+						salary,
+						address);
 				
 				//save this obj e in list before it gets replaced by second record
 				list.add(e);

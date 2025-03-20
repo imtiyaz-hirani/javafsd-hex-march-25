@@ -30,6 +30,17 @@ public class Employee {
 	}
 
 	
+	public Employee(int id, String name, String branch, String department, 
+			double salary, Address address) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.branch = branch;
+		this.department = department;
+		this.salary = salary;
+		this.address = address;
+	}
+
 	// getters and setters
 	public int getId() {
 		return id;

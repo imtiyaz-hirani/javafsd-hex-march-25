@@ -98,6 +98,36 @@ public class EmployeeRepository {
 		dbClose();
 		return empList; 
 	}
+
+	public void addEmployee(Employee employee) {
+		dbConnect();
+		String sql1 = "insert into address values (?,?,?)";
+		String sql2 = "insert into employee values (?,?,?,?,?,?)";
+		
+		try {
+			PreparedStatement pstmt = con.prepareStatement(sql1);
+			pstmt.setInt(1, employee.getAddress().getId());
+			pstmt.setString(2, employee.getAddress().getCity());
+			pstmt.setString(3, employee.getAddress().getPincode());
+			pstmt.executeUpdate();
+		} catch (SQLException e) { 
+			e.printStackTrace();
+		}
+		
+		try {
+			PreparedStatement pstmt = con.prepareStatement(sql2);
+			pstmt.setInt(1, employee.getId());
+			pstmt.setString(2, employee.getName());
+			pstmt.setString(3, employee.getBranch());
+			pstmt.setString(4, employee.getDepartment());
+			pstmt.setDouble(5, employee.getSalary());
+			pstmt.setInt(6, employee.getAddress().getId());
+			pstmt.executeUpdate();
+		} catch (SQLException e) { 
+			e.printStackTrace();
+		}
+		dbClose();
+	}
 }
 
 /*

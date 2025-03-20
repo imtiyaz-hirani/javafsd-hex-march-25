@@ -7,9 +7,10 @@ import com.corejavaapp.main.model.Employee;
 import com.corejavaapp.main.repository.EmployeeRepository;
 
 public class EmployeeService {
-
+	EmployeeRepository employeeRepository = new EmployeeRepository();
+	
 	public List<Employee> getEmployees() {
-		EmployeeRepository employeeRepository = new EmployeeRepository();
+		
 		return employeeRepository.getEmployeeList();
 	}
 
@@ -35,6 +36,10 @@ public class EmployeeService {
 		return empList.parallelStream()
 					.filter(e->e.getDepartment().equalsIgnoreCase(idepartment))
 					.toList(); 
+	}
+
+	public void addEmployee(Employee employee) {
+		 employeeRepository.addEmployee(employee);
 	}
 
 }

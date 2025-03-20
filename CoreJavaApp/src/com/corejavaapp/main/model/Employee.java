@@ -6,7 +6,8 @@ public class Employee {
 	private String branch;
 	private String department;
 	private double salary;
-
+	private Address address; 
+		
 	// constructors : default / initialization constructor
 	public Employee() {
 	} // default constructor
@@ -70,11 +71,22 @@ public class Employee {
 		this.salary = salary;
 	}
 
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
 	@Override
 	public String toString() {
 		return "Employee [id=" + id + ", name=" + name + ", branch=" + branch + ", department=" + department
-				+ ", salary=" + salary + "]";
+				+ ", salary=" + salary + ", address=" + address + "]";
 	}
+
+	
+
 
 	
 

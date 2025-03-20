@@ -13,6 +13,7 @@ public class App {
 			System.out.println("------MENU--------");
 			System.out.println("1. Fetch all employees");
 			System.out.println("2. Filter by branch,department");
+			System.out.println("3. Add Employee with Address");
 			System.out.println("0. To Exit");
 			int input = sc.nextInt();
 			if(input ==0) {
@@ -44,9 +45,14 @@ public class App {
 						System.out.println("Enter department name");
 						employeeController.filterByDepartment(sc.next());
 						break;
+					
+					
 					}
 				}
-				
+				break;
+			case 3:
+				employeeController.addEmployee();
+				System.out.println("Employee added with address to DB..");
 				break;
 			}
 		}

@@ -1,7 +1,10 @@
 package com.corejavaapp.main.controller;
 
 import java.util.List;
- 
+import java.util.Random;
+import java.util.Scanner;
+
+import com.corejavaapp.main.model.Address;
 import com.corejavaapp.main.model.Employee;
 import com.corejavaapp.main.service.EmployeeService;
 
@@ -35,4 +38,58 @@ public class EmployeeController {
 			System.out.println(e);
 		}
 	}
+
+	public void addEmployee() {
+		 /*Take input from User */
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Enter name");
+		String name = sc.next();
+		System.out.println("Enter branch");
+		String branch = sc.next();
+		System.out.println("Enter department");
+		String department = sc.next();
+		System.out.println("Enter salary");
+		double salary = sc.nextDouble();
+		System.out.println("Enter city");
+		String city = sc.next();
+		System.out.println("Enter pincode");
+		String pincode = sc.next();
+		
+		 /*Attach these values to objects of employee and address */
+		Employee employee = new Employee(name,branch,department,salary);
+		
+		Address address = new Address(city,pincode);
+		
+		/*Generate random primary keys */
+		double random = Math.random() * 10000000; // 0.00  0.99  * 10000000
+		int addressId = (int) random; 
+		
+		random = Math.random() * 10000000; 
+		int empId = (int) random; 
+		
+		/* set the key in objects*/
+		address.setId(addressId);
+		employee.setId(empId);
+		
+		//connect address to employee 
+		employee.setAddress(address);
+	
+		employeeService.addEmployee(employee); 
+		
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

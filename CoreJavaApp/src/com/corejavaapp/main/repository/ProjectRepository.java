@@ -12,10 +12,10 @@ import com.corejavaapp.main.utility.DBUtil;
 
 public class ProjectRepository {
 
-	DBUtil dbUtil = new DBUtil();
-
 	public List<Project> fetchAllProjects() {
-		Connection con = dbUtil.dbConnect();
+		System.out.println(DBUtil.getInstance());
+		System.out.println(DBUtil.getInstance());
+		Connection con = DBUtil.getInstance().dbConnect();
 		String sql="select * from project";
 		List<Project> list = new ArrayList<>();
 		try {
@@ -29,13 +29,13 @@ public class ProjectRepository {
 				list.add(project);
 				
 			}
-			dbUtil.dbClose();
+			DBUtil.getInstance().dbClose();
 			return list; 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
-		dbUtil.dbClose();
+		DBUtil.getInstance().dbClose();
 		return null;
 	}
 	

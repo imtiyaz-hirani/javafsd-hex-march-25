@@ -5,8 +5,7 @@ import java.util.Scanner;
 
 import com.corejavaapp.main.controller.EmployeeController;
 import com.corejavaapp.main.controller.ProjectController;
-import com.corejavaapp.main.model.Employee;
-import com.corejavaapp.main.model.Project;
+ import com.corejavaapp.main.model.Project;
 //Design Patterns : Singleton , Factory ()  
 public class App {
 	public static void main(String[] args) {

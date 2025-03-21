@@ -16,60 +16,14 @@ import com.corejavaapp.main.model.Project;
 import com.corejavaapp.main.utility.DBUtil;
 
 public class EmployeeRepository {
-	
-	private String userDb="root";
-	private String dbPass="techskillsit";
-	private String url="jdbc:mysql://localhost:3306/fsd_java_march_25";
-	private String driver = "com.mysql.cj.jdbc.Driver";
 	Connection con; 
-	
 	List<Employee> empList = new ArrayList<>(); 
 	
-	public void dbConnect() {
-		/*Step 1: Load the driver */
-		try {
-			Class.forName(driver);
-			//System.out.println("DRIVER LOADED!!!!");
-		} catch (ClassNotFoundException e) {
-			System.out.println("DRIVER LOADING FAILED!!!!");
-		}
-		/* Step 2: Establish connection */
-		try {
-			con = DriverManager.getConnection(url, userDb, dbPass);
-			//System.out.println("CONNECTION ESTABLISHED...");
-		} catch (SQLException e) {
-			System.out.println("CONNECTION iSSUE...");
-		}
-	}
-	
-	public void dbClose() {
-		/* Close the connection*/
-		try {
-			con.close();
-			//System.out.println("connection closed...");
-		} catch (SQLException e) {
-			 System.out.println(e.getMessage());	
-		}
-	}
-	/*  to reach out to DB */
-	public void populateRecords() {
-		Employee e1 = new Employee(1,"harry potter", "chennai","Finance", 89000); 
-		Employee e2 = new Employee(); 
-		e2.setId(2);
-		e2.setName("ronald weasley");
-		e2.setBranch("mumbai");
-		e2.setDepartment("IT");
-		e2.setSalary(75000);
-		
-		Employee e3 = new Employee(); 
-		 
-		empList.add(e1);
-		empList.add(e2);
-		empList.add(e3);
-	}
-	
 	public List<Employee> getEmployeeList() {
-		dbConnect();
+		Connection con = DBUtil.getInstance().dbConnect();
+		System.out.println(DBUtil.getInstance());
+		System.out.println(DBUtil.getInstance());
+		
 		String sql="select * from employee e JOIN address a ON e.address_id=a.id";
 		List<Employee> list = new ArrayList<>(); 
 		try {
@@ -104,17 +58,18 @@ public class EmployeeRepository {
 				//save this obj e in list before it gets replaced by second record
 				list.add(e);
 			}
-			dbClose();
+			DBUtil.getInstance().dbClose();
 			return list; 
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
-		dbClose();
+		DBUtil.getInstance().dbClose();
 		return empList; 
 	}
 
 	public void addEmployee(Employee employee) {
-		dbConnect();
+		
+		Connection con = DBUtil.getInstance().dbConnect();
 		String sql1 = "insert into address values (?,?,?)";
 		String sql2 = "insert into employee values (?,?,?,?,?,?)";
 		
@@ -140,11 +95,11 @@ public class EmployeeRepository {
 		} catch (SQLException e) { 
 			e.printStackTrace();
 		}
-		dbClose();
+		DBUtil.getInstance().dbClose();
 	}
 
 	public void assignProject(EmployeeProject employeeProject, int empId, int projectId) {
-		dbConnect();
+		Connection con = DBUtil.getInstance().dbConnect();
 		String sql="insert into employee_project values (?,?,?,?)";
 		
 		PreparedStatement pstmt;
@@ -159,11 +114,11 @@ public class EmployeeRepository {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		dbClose();
+		DBUtil.getInstance().dbClose();
 	}
 
 	public Optional<Employee> getEmployeeById(int eid) {
-		dbConnect();
+		Connection con = DBUtil.getInstance().dbConnect();
 		String sql="select * from employee where emp_id=?";
 		try {
 			PreparedStatement pstmt = con.prepareStatement(sql);
@@ -183,19 +138,21 @@ public class EmployeeRepository {
 						branch,
 						department,
 						salary);
-				dbClose();
+				DBUtil.getInstance().dbClose();
 				return Optional.of(e); 
 			}
 			 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		dbClose();
-		return null;
+		DBUtil.getInstance().dbClose();
+		return Optional.ofNullable(null);
 	}
 
 	public List<Project> getProjectsByEmployeeId(int eid) {
-		dbConnect();
+		System.out.println(DBUtil.getInstance());
+		System.out.println(DBUtil.getInstance());
+		Connection con = DBUtil.getInstance().dbConnect();
 		 String sql="select p.* "
 		 		+ " from employee e JOIN employee_project ep ON e.emp_id = ep.employee_id"
 		 		+ " JOIN project p ON ep.project_id = p.id"
@@ -216,7 +173,7 @@ public class EmployeeRepository {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		 dbClose();
+		 DBUtil.getInstance().dbClose();
 		return list;
 	}
 }

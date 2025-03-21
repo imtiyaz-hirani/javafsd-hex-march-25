@@ -10,11 +10,22 @@ import com.corejavaapp.main.model.Employee;
 
 public class DBUtil {
 
-	private String userDb="root";
-	private String dbPass="techskillsit";
-	private String url="jdbc:mysql://localhost:3306/fsd_java_march_25";
-	private String driver = "com.mysql.cj.jdbc.Driver";
-	Connection con; 
+	static DBUtil dbUtil; //static memory 
+	
+	static {  //only once --- DBUtil
+		dbUtil = new DBUtil();//100X 
+	}
+	
+	public static DBUtil getInstance(){
+		System.out.println(dbUtil);
+		return dbUtil;
+	}
+	
+	private final String userDb="root";
+	private final String dbPass="techskillsit";
+	private final String url="jdbc:mysql://localhost:3306/fsd_java_march_25";
+	private final String driver = "com.mysql.cj.jdbc.Driver";
+	private Connection con; 
 	
 	List<Employee> empList = new ArrayList<>(); 
 	
@@ -47,3 +58,14 @@ public class DBUtil {
 		}
 	}
 }
+/*
+ * login -- logout 
+ * scheduling 
+ * open -- perform - close 
+ * 
+ * 
+ * problem 1: objects of service classes --spring - manage ur service objects 
+ * problem 2: objects of repo classes --spring - manage ur repo objects 
+ * problem 3: objects of util classes (DBUtil) -- Singleton pattern 
+ * 
+ */

@@ -4,8 +4,10 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
+import com.corejavaapp.main.exception.InvalidIdException;
 import com.corejavaapp.main.model.Address;
 import com.corejavaapp.main.model.Employee;
+import com.corejavaapp.main.model.Project;
 import com.corejavaapp.main.service.EmployeeService;
 
 public class EmployeeController {
@@ -80,12 +82,27 @@ public class EmployeeController {
 	}
 
 	public void assignProject() {
+		//read ids from the user 
 		 System.out.println("Enter employee id");
 		 int empId = sc.nextInt();
 		 System.out.println("Enter project id");
 		 int projectId = sc.nextInt();
 		 
 		 employeeService.assignProject(empId,projectId);
+	}
+
+	public List<Project> getProjectsByEmployeeId(){
+		System.out.println("Enter employee id");
+		int eid = sc.nextInt();
+		try {
+			Employee employee =   employeeService.getEmployeeById(eid);
+			return employeeService.getProjectsByEmployeeId(employee.getId());
+		} catch (InvalidIdException e) {
+			 System.out.println(e.getMessage());
+			 return null; 
+		} 
+		
+		
 	}
 }
 

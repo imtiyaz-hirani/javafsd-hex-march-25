@@ -7,10 +7,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import com.corejavaapp.main.model.Address;
 import com.corejavaapp.main.model.Employee; //ctrl + shift + O
 import com.corejavaapp.main.model.EmployeeProject;
+import com.corejavaapp.main.model.Project;
+import com.corejavaapp.main.utility.DBUtil;
 
 public class EmployeeRepository {
 	
@@ -157,6 +160,64 @@ public class EmployeeRepository {
 			e.printStackTrace();
 		}
 		dbClose();
+	}
+
+	public Optional<Employee> getEmployeeById(int eid) {
+		dbConnect();
+		String sql="select * from employee where emp_id=?";
+		try {
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, eid);
+			
+			ResultSet rst = pstmt.executeQuery();
+			if(rst.next()) {
+				int id = rst.getInt("emp_id");
+				String name = rst.getString("emp_name");
+				String branch = rst.getString("branch");
+				String department = rst.getString("department");
+				double salary = rst.getDouble("salary");
+				
+				Employee e = new Employee(
+						id,
+						name,
+						branch,
+						department,
+						salary);
+				dbClose();
+				return Optional.of(e); 
+			}
+			 
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		dbClose();
+		return null;
+	}
+
+	public List<Project> getProjectsByEmployeeId(int eid) {
+		dbConnect();
+		 String sql="select p.* "
+		 		+ " from employee e JOIN employee_project ep ON e.emp_id = ep.employee_id"
+		 		+ " JOIN project p ON ep.project_id = p.id"
+		 		+ " where e.emp_id=?";
+		 List<Project> list = new ArrayList<>();
+		 try {
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, eid);
+			
+			ResultSet rst = pstmt.executeQuery();
+			while(rst.next()) {
+				Project project = new Project(
+						 rst.getInt("id"),
+						 rst.getString("title"),
+						 rst.getInt("credits"));
+				list.add(project);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		 dbClose();
+		return list;
 	}
 }
 

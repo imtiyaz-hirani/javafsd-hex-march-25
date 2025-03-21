@@ -7,7 +7,7 @@ import com.corejavaapp.main.controller.EmployeeController;
 import com.corejavaapp.main.controller.ProjectController;
 import com.corejavaapp.main.model.Employee;
 import com.corejavaapp.main.model.Project;
-
+//Design Patterns : Singleton , Factory ()  
 public class App {
 	public static void main(String[] args) {
 		EmployeeController employeeController = new EmployeeController();
@@ -62,10 +62,18 @@ public class App {
 				System.out.println("Employee added with address to DB..");
 				break;
 			case 4:
+				/* fetch all employee records to show user all ids */
 				employeeController.displayEmployeeRecord();
+				/* fetch all project records to show user all ids */
 				projectController.displayProjectRecord();
+				
 				employeeController.assignProject();
 				System.out.println("Project assigned to employee..");
+				break; 
+			case 5:
+				List<Project> pList =  employeeController.getProjectsByEmployeeId();
+				if(pList!=null)
+					pList.stream().forEach(p-> System.out.println(p));
 				break; 
 			}
 		}

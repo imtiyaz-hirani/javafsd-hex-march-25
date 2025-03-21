@@ -5,9 +5,9 @@ import java.time.LocalDate;
 public class EmployeeProject {
 	private int id; 
 	private LocalDate dateOfAssign; 
-	
 	private Employee employee;
 	private Project project;
+	
 	public int getId() {
 		return id;
 	}

@@ -22,7 +22,6 @@ public class App {
 		MyUtility util2 = context.getBean(MyUtility.class); 
 		System.out.println(util2);
 		
-		
 		String name= "harry potter";
 		System.out.println(util.getFristName(name));
 		System.out.println(util.getLastName(name));

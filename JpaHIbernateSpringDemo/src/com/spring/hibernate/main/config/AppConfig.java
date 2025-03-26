@@ -56,7 +56,7 @@ public class AppConfig {
 	public LocalContainerEntityManagerFactoryBean configureEntityManagerFactory(){
 		LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
 		factory.setDataSource(dataSource());
-		factory.setPackagesToScan("com.spring.hibernate.main.model");
+		factory.setPackagesToScan("com.spring.hibernate.main.model","com.spring.hibernate.main.controller");
 		factory.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
 		factory.setJpaProperties(setProperties());
 		return factory; 

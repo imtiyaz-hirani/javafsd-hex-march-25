@@ -26,7 +26,7 @@ public class CustomerService {
 
 	public Customer getSingleCustomer(int id) throws InvalidIDException{
 		Optional<Customer> optional =  customerRepository.findById(id);
-		if(optional == null)
+		if(optional.isEmpty())
 			throw new InvalidIDException("ID given is Invalid...");
 		return optional.get();
 	}

@@ -1,10 +1,12 @@
 package com.springboot.rest_api.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.springboot.rest_api.exception.InvalidIDException;
 import com.springboot.rest_api.model.Customer;
 import com.springboot.rest_api.repository.CustomerRepository;
 
@@ -20,6 +22,13 @@ public class CustomerService {
 
 	public List<Customer> getAllEmployees() {
 		return customerRepository.findAll();
+	}
+
+	public Customer getSingleCustomer(int id) throws InvalidIDException{
+		Optional<Customer> optional =  customerRepository.findById(id);
+		if(optional == null)
+			throw new InvalidIDException("ID given is Invalid...");
+		return optional.get();
 	}
 
 }

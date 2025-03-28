@@ -3,7 +3,7 @@ package com.springboot.rest_api.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
- import org.springframework.http.ResponseEntity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -131,7 +131,15 @@ public class CustomerController {
 			return ResponseEntity.status(400).body(messageDto);
 		}
 	}
+	
+	@GetMapping("/api/customer/isactive")
+	public List<Customer> getByIsActive(@RequestParam boolean status) {
+		return customerService.getByIsActive(status); 
+	}
 }
+
+
+
 
 
 

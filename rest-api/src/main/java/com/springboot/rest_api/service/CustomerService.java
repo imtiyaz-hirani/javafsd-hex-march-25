@@ -49,4 +49,8 @@ public class CustomerService {
 		return customerRepository.findByContact(contact);
 	}
 
+	public List<Customer> getByIsActive(boolean status) { 
+		return customerRepository.findByIsActive(status);
+	}
+
 }

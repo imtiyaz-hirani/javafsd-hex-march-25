@@ -11,7 +11,7 @@ public interface CustomerRepository
 
 	//List<Customer> findByName(String name);
 	List<Customer> findByContact(String contact);
-	//List<Customer> findByIsActive(boolean status); 
+	List<Customer> findByIsActive(boolean status); 
 	
 }
 //save() , findAll() , findById() , delete() , deleteById()

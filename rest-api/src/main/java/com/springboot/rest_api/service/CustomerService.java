@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.springboot.rest_api.exception.InvalidContactException;
@@ -21,8 +22,12 @@ public class CustomerService {
 		return customerRepository.save(customer);
 	}
 
-	public List<Customer> getAllEmployees() {
-		return customerRepository.findAll();
+	public List<Customer> getAllEmployees(Pageable pageable) {
+		return customerRepository.findAll(pageable).getContent()
+						.parallelStream()
+						.filter(c->c.isActive() == true)
+						//.sorted((a,b)->b.getId() - a.getId())
+						.toList();
 	}
 
 	public Customer getSingleCustomer(int id) throws InvalidIDException{

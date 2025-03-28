@@ -15,7 +15,8 @@ public class Customer {
 	private String name;
 	@Column(nullable = false)
 	private String contact;
-
+	private boolean isActive = true; 
+	
 	public int getId() {
 		return id;
 	}
@@ -40,4 +41,13 @@ public class Customer {
 		this.contact = contact;
 	}
 
+	public boolean isActive() {
+		return isActive;
+	}
+
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
+	}
+
+	
 }

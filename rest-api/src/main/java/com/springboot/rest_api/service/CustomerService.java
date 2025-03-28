@@ -31,4 +31,9 @@ public class CustomerService {
 		return optional.get();
 	}
 
+	public void hardDelete(Customer customer) {
+		customerRepository.delete(customer);
+		
+	}
+
 }

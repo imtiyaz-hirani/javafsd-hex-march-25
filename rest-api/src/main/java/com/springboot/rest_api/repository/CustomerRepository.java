@@ -7,5 +7,5 @@ import com.springboot.rest_api.model.Customer;
 public interface CustomerRepository 
 		extends JpaRepository<Customer, Integer>{
 
-	//save() , findAll() 
+	//save() , findAll() , findById() , delete() , deleteById()
 }

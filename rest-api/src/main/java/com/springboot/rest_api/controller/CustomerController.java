@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -90,7 +91,28 @@ public class CustomerController {
 		}
 	}
 	
-	
+	/*
+	 * Update Customer 
+	 * */
+	@PutMapping("/api/customer/update/{id}")
+	public ResponseEntity<?> updateCustomer(@PathVariable int id , 
+								@RequestBody Customer newValue) {
+		//verify the id given and fetch existing record
+		try {
+			Customer customer = customerService.getSingleCustomer(id);
+			if(newValue.getName() != null)
+				customer.setName(newValue.getName());
+			if(newValue.getContact() != null)
+				customer.setContact(newValue.getContact()); 
+			customer = customerService.addCustomer(customer);
+			return ResponseEntity.ok(customer); 
+			
+		} catch (InvalidIDException e) {
+			messageDto.setBody(e.getMessage());
+			messageDto.setStatusCode(400);
+			return ResponseEntity.status(400).body(messageDto); 
+		}
+	}
 }
 
 

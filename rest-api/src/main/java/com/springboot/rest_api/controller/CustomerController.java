@@ -10,9 +10,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.springboot.rest_api.dto.MessageResponseDto;
+import com.springboot.rest_api.exception.InvalidContactException;
 import com.springboot.rest_api.exception.InvalidIDException;
 import com.springboot.rest_api.model.Customer;
 import com.springboot.rest_api.service.CustomerService;
@@ -111,6 +113,22 @@ public class CustomerController {
 			messageDto.setBody(e.getMessage());
 			messageDto.setStatusCode(400);
 			return ResponseEntity.status(400).body(messageDto); 
+		}
+	}
+	
+	
+	/*
+	 * Find all customers by contact 
+	 * */
+	@GetMapping("/api/customer/contact")
+	public ResponseEntity<?> getAllCustomersByContact(@RequestParam String contact) {
+		try {
+			List<Customer> list =  customerService.getAllCustomersByContact(contact);
+			return ResponseEntity.ok(list); 
+		} catch (InvalidContactException e) {
+			messageDto.setBody(e.getMessage());
+			messageDto.setStatusCode(400);
+			return ResponseEntity.status(400).body(messageDto);
 		}
 	}
 }

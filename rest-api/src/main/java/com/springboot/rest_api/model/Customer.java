@@ -10,12 +10,12 @@ import jakarta.persistence.Id;
 public class Customer {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private int id;  //findById
 	@Column(nullable = false)
-	private String name;
-	@Column(nullable = false)
-	private String contact;
-	private boolean isActive = true; 
+	private String name; //findByName
+	@Column(nullable = false /* , unique = true */)
+	private String contact; //findByContact
+	private boolean isActive = true; //findByIsActive
 	
 	public int getId() {
 		return id;

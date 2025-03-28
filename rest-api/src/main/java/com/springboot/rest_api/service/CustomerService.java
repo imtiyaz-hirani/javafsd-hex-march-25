@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.springboot.rest_api.exception.InvalidContactException;
 import com.springboot.rest_api.exception.InvalidIDException;
 import com.springboot.rest_api.model.Customer;
 import com.springboot.rest_api.repository.CustomerRepository;
@@ -40,6 +41,12 @@ public class CustomerService {
 		customer.setActive(false);
 		customerRepository.save(customer); 
 		
+	}
+
+	public List<Customer> getAllCustomersByContact(String contact) throws InvalidContactException {
+		if(contact.length() != 10)
+			throw new InvalidContactException("contact number invalid must be 10 digits..");
+		return customerRepository.findByContact(contact);
 	}
 
 }

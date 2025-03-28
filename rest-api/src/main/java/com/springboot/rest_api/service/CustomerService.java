@@ -36,4 +36,10 @@ public class CustomerService {
 		
 	}
 
+	public void softDelete(Customer customer) {
+		customer.setActive(false);
+		customerRepository.save(customer); 
+		
+	}
+
 }

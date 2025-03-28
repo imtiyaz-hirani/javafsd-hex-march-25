@@ -73,6 +73,24 @@ public class CustomerController {
 		}
 	}
 	
+	@DeleteMapping("/api/customer/soft-delete/{id}")
+	public ResponseEntity<?> softDeleteCustomer(@PathVariable int id) {
+		try {
+			//lets validate id and if valid fetch customer object
+			Customer customer = customerService.getSingleCustomer(id);
+			//since it is valid here at line 80, lets changeisActive to false
+			customerService.softDelete(customer);
+			messageDto.setBody("Customer record soft deleted from DB!!");
+			messageDto.setStatusCode(200);
+			return ResponseEntity.ok(messageDto);
+		} catch (InvalidIDException e) {
+			messageDto.setBody(e.getMessage());
+			messageDto.setStatusCode(400);
+			return ResponseEntity.status(400).body(messageDto); 
+		}
+	}
+	
+	
 }
 
 

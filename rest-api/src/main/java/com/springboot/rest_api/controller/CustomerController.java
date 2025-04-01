@@ -29,7 +29,7 @@ public class CustomerController {
 	private CustomerService customerService;  //Dependency Injection DI 
 	@Autowired
 	private MessageResponseDto messageDto;
-	
+	//i want to create a hello API which returns Hello from Spring boot!!!
 	@GetMapping("/api/customer/hello")
 	public String sayHello() {
 		return "Hello from Spring boot!!!";

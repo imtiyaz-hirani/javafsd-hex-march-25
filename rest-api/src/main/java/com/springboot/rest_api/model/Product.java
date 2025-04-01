@@ -14,12 +14,12 @@ import jakarta.persistence.Table;
 public class Product {  
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id; 	
+	private int id;  //findById	
 	@Column(nullable = false)
-	private String title; 
+	private String title; //findByTitle
 	
 	@Column(nullable = false, length = 512)
-	private String shortDescription; 
+	private String shortDescription;  
 	
 	@Column(length = 2000)
 	private String description; 
@@ -29,10 +29,10 @@ public class Product {
 	private double price = 0;
 	
 	@ManyToOne
-	private Category category;
+	private Category category; //findByCategoryId
 
 	@ManyToOne
-	private Vendor vendor; 
+	private Vendor vendor; //findByVendorId
 	
 	public int getId() {
 		return id;

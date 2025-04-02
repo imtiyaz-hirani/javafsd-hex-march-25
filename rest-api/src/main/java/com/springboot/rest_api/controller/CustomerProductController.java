@@ -1,8 +1,10 @@
 package com.springboot.rest_api.controller;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -49,4 +51,25 @@ public class CustomerProductController {
 		/* Save customerProduct Object in DB */
 		return customerProductService.save(customerProduct);
 	}
+	
+	/*get customers that have purchased by product(id: ask)*/
+	@GetMapping("/v1/{pid}")
+	public List<Customer> getCustomerByProductId(@PathVariable int pid){
+		
+		return customerProductService.getCustomerByProductId(pid);
+	}
+	/*get products that have purchased by customer(id: ask)*/
+	@GetMapping("/v2/{cid}")
+	public List<Product> getProductByCustomerId(@PathVariable int cid){
+		
+		return customerProductService.getProductByCustomerId(cid); 
+	}
 }
+
+
+
+
+
+
+
+

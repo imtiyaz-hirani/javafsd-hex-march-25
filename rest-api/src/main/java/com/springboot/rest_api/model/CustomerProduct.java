@@ -15,15 +15,15 @@ public class CustomerProduct {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;  
+	private int id;   //findById
 	
 	@ManyToOne
-	private Customer customer;
+	private Customer customer; //findByCustomerId
 	
 	@ManyToOne
-	private Product product;
+	private Product product; //findByProductId
 	
-	private LocalDate dateOfPurchase; 
+	private LocalDate dateOfPurchase; //findByDateOfPurchase 
 	
 	private int quantity = 1;
 

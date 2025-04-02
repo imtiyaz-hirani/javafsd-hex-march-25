@@ -58,4 +58,9 @@ public class CustomerService {
 		return customerRepository.findByIsActive(status);
 	}
 
+	public Customer getById(int cid) {
+		 
+		return null;
+	}
+
 }

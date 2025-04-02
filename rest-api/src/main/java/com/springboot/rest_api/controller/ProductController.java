@@ -19,9 +19,11 @@ import com.springboot.rest_api.exception.InvalidIDException;
 import com.springboot.rest_api.model.Category;
 import com.springboot.rest_api.model.Product;
 import com.springboot.rest_api.model.Vendor;
+import com.springboot.rest_api.model.Warehouse;
 import com.springboot.rest_api.service.CategoryService;
 import com.springboot.rest_api.service.ProductService;
 import com.springboot.rest_api.service.VendorService;
+import com.springboot.rest_api.service.WarehouseService;
 
 @RestController
 @RequestMapping("/api/product")
@@ -37,41 +39,35 @@ public class ProductController {
 	private ProductService productService;
 	
 	@Autowired
+	private WarehouseService warehouseService;
+	
+	@Autowired
 	private MessageResponseDto dto;
 	
-	@PostMapping("/add/{catId}/{vid}")
-	public ResponseEntity<?> addProduct(@PathVariable int catId, 
+	@PostMapping("/add/{catId}/{vid}/{wid}")
+	public Product addProduct(@PathVariable int catId, 
 						   @PathVariable int vid,
-						   @RequestBody Product product) {
+						   @PathVariable int wid,
+						   @RequestBody Product product) throws InvalidIDException {
 		
 		/* Fetch category object based on catId -- if not Throw InvalidIDException*/
-		Category category = null; 
-		try {
-			category = categoryService.getById(catId);
-		} catch (InvalidIDException e) {
-			dto.setBody(e.getMessage());
-			dto.setStatusCode(400);
-			return ResponseEntity.status(400).body(dto);
-		}
+		Category category = categoryService.getById(catId);
 		
-		/* Fetch vendor object based on vidId -- if not Throw InvalidIDException*/
-		Vendor vendor = null;
-		try {
-			vendor = vendorService.getById(vid);
-		} catch (InvalidIDException e) {
-			dto.setBody(e.getMessage());
-			dto.setStatusCode(400);
-			return ResponseEntity.status(400).body(dto);
-		}
+		/* Fetch vendor object based on vid -- if not Throw InvalidIDException*/
+		Vendor vendor = vendorService.getById(vid);
+		
+		/* Fetch warehouse object based on wid -- if not Throw InvalidIDException*/
+		Warehouse warehouse =  warehouseService.getById(wid);
 		
 		/* Attach category and vendor to product Object */
 		product.setCategory(category);
 		product.setVendor(vendor);
+		product.setWarehouse(warehouse);
 		
 		/* Save product Object */
 		product = productService.add(product);
 		
-		return ResponseEntity.ok(product);
+		return product; 
 	}
 
 	@GetMapping("/category/{catId}")

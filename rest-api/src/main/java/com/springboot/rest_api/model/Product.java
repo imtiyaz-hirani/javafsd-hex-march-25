@@ -34,6 +34,9 @@ public class Product {
 	@ManyToOne
 	private Vendor vendor; //findByVendorId
 	
+	@ManyToOne
+	private Warehouse warehouse; //findByWarehouseId
+	
 	public int getId() {
 		return id;
 	}
@@ -96,6 +99,14 @@ public class Product {
 
 	public void setVendor(Vendor vendor) {
 		this.vendor = vendor;
+	}
+
+	public Warehouse getWarehouse() {
+		return warehouse;
+	}
+
+	public void setWarehouse(Warehouse warehouse) {
+		this.warehouse = warehouse;
 	}  
 	
 	

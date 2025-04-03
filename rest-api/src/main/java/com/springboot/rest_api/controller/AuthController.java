@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.springboot.rest_api.exception.InvalidUsernameException;
 import com.springboot.rest_api.model.User;
 import com.springboot.rest_api.service.AuthService;
 
@@ -18,7 +19,7 @@ public class AuthController {
 	
 	
 	@PostMapping("/signup")
-	public User signUp(@RequestBody User user) {
+	public User signUp(@RequestBody User user) throws InvalidUsernameException {
 		return authService.signUp(user);
 	}
 }

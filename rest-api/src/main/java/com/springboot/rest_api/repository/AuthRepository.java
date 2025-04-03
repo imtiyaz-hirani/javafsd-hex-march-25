@@ -6,4 +6,5 @@ import com.springboot.rest_api.model.User;
 
 public interface AuthRepository extends JpaRepository<User, Integer>{
 
+	User findByUsername(String username); 
 }

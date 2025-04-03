@@ -16,10 +16,10 @@ public class User {
 	private int id; 
 	
 	@Column(nullable = false)
-	private String username; 
+	private String username; //findByUsername
 	
 	@Column(nullable = false)
-	private String password; 
+	private String password; //findByPassword
 	
 	private String role;
 

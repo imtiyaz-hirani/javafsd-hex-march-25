@@ -30,9 +30,15 @@ public class CustomerController {
 	@Autowired
 	private MessageResponseDto messageDto;
 	//i want to create a hello API which returns Hello from Spring boot!!!
-	@GetMapping("/api/customer/hello")
+	
+	@GetMapping("/api/customer/public/hello")
 	public String sayHello() {
-		return "Hello from Spring boot!!";
+		return "Hello from Spring boot in public!!";
+	}
+	
+	@GetMapping("/api/customer/private/hello")
+	public String sayPrivateHello() {
+		return "Hello from Spring boot in private!!";
 	}
 	
 	@PostMapping("/api/customer/add")

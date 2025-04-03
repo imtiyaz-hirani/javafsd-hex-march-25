@@ -32,7 +32,7 @@ public class CustomerController {
 	//i want to create a hello API which returns Hello from Spring boot!!!
 	@GetMapping("/api/customer/hello")
 	public String sayHello() {
-		return "Hello from Spring boot!!!";
+		return "Hello from Spring boot!!";
 	}
 	
 	@PostMapping("/api/customer/add")

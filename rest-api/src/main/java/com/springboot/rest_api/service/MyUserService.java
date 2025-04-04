@@ -26,7 +26,7 @@ public class MyUserService implements UserDetailsService{
 	 * class MyUserService implements UserDetailsService
 	 * MyUserService is-a UserDetailsService
 	 * 
-	 * and do not that secutiry config needs UserDetailsService
+	 * and do note that security config needs UserDetailsService
 	 */
 	
 

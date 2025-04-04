@@ -29,6 +29,7 @@ public class SecurityConfig {
 				.requestMatchers("/api/customer/public/hello").permitAll()
 				.requestMatchers("/api/customer/private/hello").authenticated()
 				.requestMatchers("/api/auth/signup").permitAll()
+				.requestMatchers("/api/auth/login").authenticated()
 				.anyRequest().authenticated()
 			)
 		.authenticationProvider(getAuth())
@@ -50,5 +51,5 @@ public class SecurityConfig {
 		return new BCryptPasswordEncoder();
 	}
 	
-	
+	//RBAC
 }

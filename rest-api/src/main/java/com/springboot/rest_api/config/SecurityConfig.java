@@ -30,6 +30,7 @@ public class SecurityConfig {
 				.requestMatchers("/api/customer/private/hello").authenticated()
 				.requestMatchers("/api/auth/signup").permitAll()
 				.requestMatchers("/api/auth/login").authenticated()
+				.requestMatchers("/api/product/image/upload/{pid}").hasAnyAuthority("VENDOR","ADMIN")
 				.anyRequest().authenticated()
 			)
 		.authenticationProvider(getAuth())

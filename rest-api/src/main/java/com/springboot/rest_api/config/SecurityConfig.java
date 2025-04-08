@@ -39,6 +39,8 @@ public class SecurityConfig {
 				.requestMatchers("/api/auth/signup").permitAll()
 				.requestMatchers("/api/auth/login").authenticated()
 				.requestMatchers("/api/product/image/upload/{pid}").hasAnyAuthority("VENDOR","ADMIN")
+				.requestMatchers("/api/customer/delete-all-inactive").hasAuthority("ADMIN")
+				
 				.anyRequest().authenticated()
 			)
 			.sessionManagement(session-> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

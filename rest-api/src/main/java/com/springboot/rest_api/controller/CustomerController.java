@@ -147,6 +147,12 @@ public class CustomerController {
 	public List<Customer> getByIsActive(@RequestParam boolean status) {
 		return customerService.getByIsActive(status); 
 	}
+	
+	@DeleteMapping("/api/customer/delete-all-inactive")
+	public ResponseEntity<?> deleteAllInActiveCustomers() {
+		customerService.deleteAllInActiveCustomers();
+		return ResponseEntity.ok(" Inactive Customers deleted");
+	}
 }
 
 

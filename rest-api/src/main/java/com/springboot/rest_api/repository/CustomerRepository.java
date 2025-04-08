@@ -15,3 +15,10 @@ public interface CustomerRepository
 	
 }
 //save() , findAll() , findById() , delete() , deleteById()
+
+/*
+ * deleteAll()
+ * saveAll()
+ * findAll() 
+ * 
+ * */

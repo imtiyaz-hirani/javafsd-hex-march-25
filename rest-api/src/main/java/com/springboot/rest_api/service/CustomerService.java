@@ -63,4 +63,12 @@ public class CustomerService {
 		return null;
 	}
 
+	public void deleteAllInActiveCustomers() {
+		/*Fetch all customer that are inactive - List<Customer> */
+		List<Customer> list= customerRepository.findByIsActive(false);
+		/* Delete all these customers from the above list */
+		customerRepository.deleteAll(list);
+		
+	}
+
 }

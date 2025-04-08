@@ -97,6 +97,7 @@ public class CustomerService {
 		while((line = br.readLine()) != null) {
 			//System.out.println(line);
 			String[] fields  = line.split(",");
+			
 			String name = fields[1];
 			String contact = fields[2];
 			String username = fields[3];
@@ -115,6 +116,11 @@ public class CustomerService {
 		
 		/*Use saveAll - Batch insert to save them all in DB */
 		customerRepository.saveAll(list);
+	}
+
+	public Customer getByUsername(String username) {
+		 
+		return customerRepository.findByUserUsername(username);
 	}
 
 }

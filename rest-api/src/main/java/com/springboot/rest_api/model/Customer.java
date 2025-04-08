@@ -19,9 +19,14 @@ public class Customer {
 	private boolean isActive = true; //findByIsActive
 	
 	@OneToOne
-	private User user;
+	private User user; //findByUserUsername(String username)
 	
 	
+	public Customer() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	public Customer(String name, String contact, User user) {
 		super();
 		this.name = name;

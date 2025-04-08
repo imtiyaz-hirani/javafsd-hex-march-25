@@ -12,7 +12,7 @@ public interface CustomerRepository
 	//List<Customer> findByName(String name);
 	List<Customer> findByContact(String contact);
 	List<Customer> findByIsActive(boolean status); 
-	
+	Customer findByUserUsername(String username);
 }
 //save() , findAll() , findById() , delete() , deleteById()
 

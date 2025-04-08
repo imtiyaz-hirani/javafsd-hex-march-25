@@ -41,7 +41,8 @@ public class SecurityConfig {
 				.requestMatchers("/api/product/image/upload/{pid}").hasAnyAuthority("VENDOR","ADMIN")
 				.requestMatchers("/api/customer/delete-all-inactive").hasAuthority("ADMIN")
 				.requestMatchers("/api/customer/batch-insert").hasAnyAuthority("ADMIN","USER")
-
+				.requestMatchers("/api/review/add/{pid}").hasAuthority("CUSTOMER")
+				.requestMatchers("/api/customer/product/purchase/{cid}/{pid}").permitAll()
 				
 				.anyRequest().authenticated()
 			)

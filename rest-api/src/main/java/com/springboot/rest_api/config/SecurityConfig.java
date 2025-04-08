@@ -40,6 +40,8 @@ public class SecurityConfig {
 				.requestMatchers("/api/auth/login").authenticated()
 				.requestMatchers("/api/product/image/upload/{pid}").hasAnyAuthority("VENDOR","ADMIN")
 				.requestMatchers("/api/customer/delete-all-inactive").hasAuthority("ADMIN")
+				.requestMatchers("/api/customer/batch-insert").hasAnyAuthority("ADMIN","USER")
+
 				
 				.anyRequest().authenticated()
 			)

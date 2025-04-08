@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+ import jakarta.persistence.OneToOne;
 
 @Entity
 public class Customer {
@@ -17,6 +18,17 @@ public class Customer {
 	private String contact; //findByContact
 	private boolean isActive = true; //findByIsActive
 	
+	@OneToOne
+	private User user;
+	
+	
+	public Customer(String name, String contact, User user) {
+		super();
+		this.name = name;
+		this.contact = contact;
+		this.user = user;
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -47,6 +59,14 @@ public class Customer {
 
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	

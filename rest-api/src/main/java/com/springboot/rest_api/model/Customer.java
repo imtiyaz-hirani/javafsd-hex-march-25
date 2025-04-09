@@ -34,6 +34,16 @@ public class Customer {
 		this.user = user;
 	}
 
+	
+	public Customer(int id, String name, String contact, boolean isActive, User user) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.contact = contact;
+		this.isActive = isActive;
+		this.user = user;
+	}
+
 	public int getId() {
 		return id;
 	}

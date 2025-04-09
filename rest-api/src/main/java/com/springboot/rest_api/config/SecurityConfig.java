@@ -44,7 +44,7 @@ public class SecurityConfig {
 				.requestMatchers("/api/review/add/{pid}").hasAuthority("CUSTOMER")
 				.requestMatchers("/api/customer/product/purchase/{cid}/{pid}").permitAll()
 				
-				.anyRequest().authenticated()
+				.anyRequest().permitAll()
 			)
 			.sessionManagement(session-> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 			.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)

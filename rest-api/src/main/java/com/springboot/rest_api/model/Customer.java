@@ -1,5 +1,7 @@
 package com.springboot.rest_api.model;
 
+import java.util.Objects;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -82,6 +84,24 @@ public class Customer {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(contact, id, isActive, name, user);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Customer other = (Customer) obj;
+		return Objects.equals(contact, other.contact) && id == other.id && isActive == other.isActive
+				&& Objects.equals(name, other.name) && Objects.equals(user, other.user);
 	}
 
 	

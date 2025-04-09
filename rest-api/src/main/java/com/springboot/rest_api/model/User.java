@@ -2,6 +2,7 @@ package com.springboot.rest_api.model;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Objects;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -97,6 +98,24 @@ public class User implements UserDetails{
 		list.add(sga); //my authority from role. 
 		
 		return list;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, password, role, username);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		return id == other.id && Objects.equals(password, other.password) && Objects.equals(role, other.role)
+				&& Objects.equals(username, other.username);
 	} 
 	
 	

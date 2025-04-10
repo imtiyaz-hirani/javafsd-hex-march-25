@@ -110,4 +110,9 @@ public class CustomerServiceTest {
 			assertEquals("contact number invalid must be 10 digits..", e.getMessage());
 		}
 	}
+	
+	@Test
+	public void getByIsActive() {
+		
+	}
 }

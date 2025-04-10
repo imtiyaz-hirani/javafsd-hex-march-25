@@ -2,6 +2,9 @@ package com.springboot.rest_api.controller;
 
 import java.security.Principal;
 
+import org.slf4j.ILoggerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -33,8 +36,11 @@ public class AuthController {
 	@Autowired
 	private JwtUtil jwtUtil;
 	
+	Logger logger =  LoggerFactory.getLogger("AuthController"); 
+	
 	@PostMapping("/signup")
 	public User signUp(@RequestBody User user) throws InvalidUsernameException {
+		logger.info("Sign up in progress for User " + user.getUsername()); 
 		return authService.signUp(user);
 	}
 	
@@ -48,6 +54,7 @@ public class AuthController {
 		 * -- yes but only username, spring filter never ever shares user password 
 		 * */
 		String username = principal.getName();
+		logger.debug("Username given " + username); 
 		return myUserService.loadUserByUsername(username);
 	}
 	
@@ -64,6 +71,9 @@ public class AuthController {
 		dto.setToken(token);
 		dto.setUsername(user.getUsername());
 		dto.setExpiry(jwtUtil.extractExpiration(token).toString());
+		logger.info("Token generated for User " + user.getUsername()); 
+		logger.warn("Token will expiry On " + jwtUtil.extractExpiration(token).toString());
+		 
 		return dto; 
 	}
 	

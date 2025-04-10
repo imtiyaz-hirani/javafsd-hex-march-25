@@ -2,6 +2,8 @@ package com.springboot.rest_api.config;
 
 import java.io.IOException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatusCode;
  import org.springframework.web.ErrorResponse;
  import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -12,9 +14,12 @@ import com.springboot.rest_api.exception.InvalidUsernameException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandlerConfig {
-
-	 @ExceptionHandler(InvalidIDException.class)
+	Logger logger =  LoggerFactory.getLogger("GlobalExceptionHandlerConfig"); 
+	 
+	@ExceptionHandler(InvalidIDException.class)
 	 public ErrorResponse invalidIDExceptionHandler(InvalidIDException e) {
+		
+		 logger.error("Invalid ID given " + e.getMessage());
 		 return ErrorResponse.create
 				 			(e, 
 				 			HttpStatusCode.valueOf(400), 

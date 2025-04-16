@@ -82,4 +82,16 @@ public class AuthController {
 		String username = principal.getName();
 		return myUserService.loadUserByUsername(username);
 	}
+	
+	/*On the basis of current password , u can let them reset the password  */
+	@PostMapping("/reset")
+	public void resetPassword(Principal principal, @RequestBody User user) {
+		/* read username from principal and fetch User details from DB */
+		
+		/* then update the old password in fetched user with new password*/
+		
+		/*Save the new User in DB */
+	}
+	
+	
 }

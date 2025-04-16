@@ -4,7 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
 @Entity
-public class Product {
+public class Product {//p
 	@Id
 	private int id; 
 	
@@ -34,6 +34,11 @@ public class Product {
 
 	public void setPrice(double price) {
 		this.price = price;
+	}
+
+	@Override
+	public String toString() {
+		return "Product [id=" + id + ", title=" + title + ", price=" + price + "]";
 	} 
 	
 	

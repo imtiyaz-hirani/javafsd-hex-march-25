@@ -14,7 +14,7 @@ public class AppFactory {
 			new AnnotationConfigApplicationContext(AppConfig.class);
 	
 	public static ProductController getProductController(){
-		System.out.println("controller object " +context.getBean(ProductController.class));
+		//System.out.println("controller object " +context.getBean(ProductController.class));
 		return context.getBean(ProductController.class);
 	}
 	

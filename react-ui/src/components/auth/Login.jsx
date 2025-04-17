@@ -1,22 +1,42 @@
 import { useState } from "react";
+import users from '../../data/users.js'
 
 function Login(){
     const [username,setUsername] = useState(null);
     const [password,setPassword] = useState(null);
-    const [msg,setMsg] = useState(null);
+    const [msgUsername,setMsgUsername] = useState(null);
+    const [msgPassword,setMsgPassword] = useState(null);
+    const [userData,setUserData] = useState(users); 
 
     const login = ()=>{
-        if(username === null){
-            setMsg("Username cannot be blank")
-            return 
+        let isCorrect = false; 
+
+        if(username === null ||  username === "" || username === undefined){
+            setMsgUsername("Username cannot be blank")
+            return
         }
-        if(password == null){
-            setMsg("Password cannot be blank")
-            return 
+        else{
+            setMsgUsername(null)
         }
 
-        console.log('i am on line 17')
-        alert('alright, u r ready to be tested!!!!')
+        if(password == null || password === "" || password === undefined){
+            setMsgPassword("Password cannot be blank")
+            return
+        }
+        else{
+            setMsgPassword(null)
+        }
+        
+        //check username password by calling API else use file data 
+        userData.forEach(u => {
+            if(u.username === username  && u.password === password){
+                alert("alright u r legit, u role is  " + u.role)
+                isCorrect = true 
+            }
+            if(isCorrect === false){
+                setMsgUsername("Invalid Credentials")
+            }
+        });
     }
     
     return(
@@ -43,18 +63,31 @@ function Login(){
                                 Login
                             </div>
                             <div class="card-body">
-                                <div className="mb-4">
-                                    {msg}
-                                </div>
+                                {
+                                    msgUsername === null ? "" : <div className="mb-4">
+                                        {msgUsername}
+                                    </div>
+                                }
+                                 {
+                                    msgPassword === null ? "" : <div className="mb-4">
+                                        {msgPassword}
+                                    </div>
+                                }
                                 <div className="mb-4">
                                     <label>Username: </label>
                                     <input type="text" className="form-control" 
-                                        onChange={$event=>setUsername($event.target.value) } />
+                                        onChange={$event=>{
+                                                setUsername($event.target.value); 
+                                                setMsgUsername(null) 
+                                                } } />
                                 </div>
                                 <div className="mb-4">
                                     <label>Password: </label>
                                     <input type="password" className="form-control" 
-                                        onChange={($event)=>{setPassword($event.target.value)}}/>
+                                        onChange={($event)=>{
+                                            setPassword($event.target.value); 
+                                            setMsgPassword(null)
+                                        }}/>
                                 </div>
                                 <div className="mb-4">
                                 <button type="button" class="btn btn-primary" onClick={()=>{login()}}>Login</button>

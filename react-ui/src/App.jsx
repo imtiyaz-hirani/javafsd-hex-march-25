@@ -1,12 +1,16 @@
 import Login from "./components/auth/Login"
+import CustomerDashboard from "./components/customer/CustomerDashboard"
+import Post from "./components/playground/posts"
 
 function App() { //app is a component and a component must have a return 
- 
-  return(
+
+  return (
     <div>
-        {
-          <Login />
-        }
+      {
+        //<Login />
+        //<CustomerDashboard />
+        <Post />
+      }
     </div>
   )
 }

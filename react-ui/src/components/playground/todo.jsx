@@ -1,11 +1,14 @@
+import axios from "axios";
 import { useEffect, useState } from "react"
 
 function Todo() {
 
     const [todos, setTodo] = useState([])
+    const url = 'https://jsonplaceholder.typicode.com/todos';
+
     useEffect(() => {
         const getTodos = () => {
-            fetch('https://jsonplaceholder.typicode.com/todos')
+            fetch(url)
                 .then(resp => resp.json())
                 .then(data => setTodo(data))
                 .catch(err => {
@@ -13,7 +16,22 @@ function Todo() {
                 })
         }
 
-        getTodos();
+        const getTodosWithAxios = async () => {
+            try {
+                let response = await axios.get(url);
+                //console.log(response)
+                setTodo(response.data)
+            }
+            catch (err) {
+                console.log(err)
+            }
+            finally {
+
+            }
+        }
+
+        //getTodos();
+        getTodosWithAxios()
     }, []);
 
     const deleteTodo = (todoId) => {

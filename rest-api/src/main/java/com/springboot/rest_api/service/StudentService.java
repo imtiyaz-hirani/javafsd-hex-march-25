@@ -21,5 +21,9 @@ public class StudentService {
 		 
 		return studentRepository.findAll(pageable) ;
 	}
+	public void delete(int sid) {
+		studentRepository.deleteById(sid);
+		
+	}
 
 }

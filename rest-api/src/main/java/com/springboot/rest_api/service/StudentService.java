@@ -1,5 +1,7 @@
 package com.springboot.rest_api.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,6 +26,12 @@ public class StudentService {
 	public void delete(int sid) {
 		studentRepository.deleteById(sid);
 		
+	}
+	public Student getStudent(int sid) {
+		Optional<Student> optional =  studentRepository.findById(sid);
+		if(optional.isEmpty())
+			throw new RuntimeException("Student id invalid");
+		return optional.get();
 	}
 
 }

@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import CustomerNavbar from "./navbar";
 import axios from "axios";
 import { useState } from "react";
+import { Link } from "react-router";
 
 function CustomerDashboard() {
 
@@ -35,9 +36,11 @@ function CustomerDashboard() {
                             categories.map((c, index) => (
                                 <div className="col-sm-2" key={index}>
                                     <div className="card">
-                                        <div className="card-body">
-                                            {c.name}
-                                        </div>
+                                        <Link to={`/product/${c.id}/${c.name}`}>
+                                            <div className="card-body" >
+                                                {c.name}
+                                            </div>
+                                        </Link>
                                     </div>
                                 </div>
                             ))

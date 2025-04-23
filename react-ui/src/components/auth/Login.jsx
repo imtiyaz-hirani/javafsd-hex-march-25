@@ -1,6 +1,7 @@
 import { useState } from "react";
 import users from '../../data/users.js'
 import CustomerDashboard from "../customer/CustomerDashboard.jsx";
+import { useNavigate } from "react-router";
 
 function Login() {
     const [username, setUsername] = useState(null);
@@ -8,6 +9,7 @@ function Login() {
     const [msgUsername, setMsgUsername] = useState(null);
     const [msgPassword, setMsgPassword] = useState(null);
     const [userData, setUserData] = useState(users);
+    const navigate = useNavigate();
 
     const login = () => {
         let isCorrect = false;
@@ -33,8 +35,9 @@ function Login() {
             if (u.username === username && u.password === password) {
                 isCorrect = true
                 switch (u.role) {
-                    case 'EMPLOYEE':
-                        //navigate to employee dashboard
+                    case 'CUSTOMER':
+                        //navigate to customer dashboard
+                        navigate("/customer")
                         break;
                     case 'VENDOR':
                         //navigate to vendor dashboard

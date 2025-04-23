@@ -53,10 +53,10 @@ function StudentList() {
 
             //update the record from my array 
             let sObj = students.filter(s => s.id === sid);
-            sObj.name = name
-            sObj.age = age
-            sObj.id = response.data.id
-            sObj.email = response.data.email
+            sObj.name = name //coming from end user thru state
+            sObj.age = age //coming from end user thru state
+            sObj.id = response.data.id //coming from API as it has not changed
+            sObj.email = response.data.email //coming from API as it has not changed
             //delete the record u want to update 
             let temp = [...students.filter(s => s.id !== sid)]
             //add updated record in temp 

@@ -1,9 +1,20 @@
+import CustomerNavbar from "./navbar";
 
 function CustomerDashboard() {
 
     return (
-        <div>
-            <h1>Customer dashboard</h1>
+        <div className="container-fluid">
+            <div className="row">
+                <div className="col-lg-12">
+                    <CustomerNavbar />
+                </div>
+            </div>
+
+            <div className="row">
+                <div className="col-lg-12">
+                    ---customer components go here....
+                </div>
+            </div>
         </div>
     )
 }

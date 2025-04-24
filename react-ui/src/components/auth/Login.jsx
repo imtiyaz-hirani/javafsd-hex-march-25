@@ -12,7 +12,7 @@ function Login() {
     const [userData, setUserData] = useState(users);
     const navigate = useNavigate();
 
-    const login = async () => {
+    const login = () => {
         let isCorrect = false;
 
         if (username === null || username === "" || username === undefined) {
@@ -38,40 +38,50 @@ function Login() {
             'password': password
         }
 
-        try {
-            const response = await axios.post('http://localhost:8081/api/auth/token/generate', body);
-            //console.log(response)
-            let token = response.data.token
-            //save the token in localstorage memory of web browser 
-            localStorage.setItem('token', token)
-            localStorage.setItem('username', username)
-        }
-        catch (err) {
-            setMsgUsername("Invalid Credentials")
 
-        }
-        // userData.forEach(u => {
-        //     if (u.username === username && u.password === password) {
-        //         isCorrect = true
-        //         switch (u.role) {
-        //             case 'CUSTOMER':
-        //                 //navigate to customer dashboard
-        //                 navigate("/customer")
-        //                 break;
-        //             case 'VENDOR':
-        //                 //navigate to vendor dashboard
-        //                 break;
-        //             case 'EXECUTIVE':
-        //                 //navigate to executive dashboard
-        //                 break;
-        //             default:
-        //                 break;
-        //         }
-        //     }
-        //     if (isCorrect === false) {
-        //         setMsgUsername("Invalid Credentials")
-        //     }
-        // });
+        axios.post('http://localhost:8081/api/auth/token/generate', body)
+            .then(response => {
+                //console.log(response)
+                let token = response.data.token
+                //save the token in localstorage memory of web browser 
+                localStorage.setItem('token', token)
+                localStorage.setItem('username', username)
+
+                //console.log(token)
+                axios.get('http://localhost:8081/api/auth/user/details',
+                    {
+                        headers: {
+                            "Authorization": `Bearer ${token}`  //token goes here but not getting detected in backend
+                        }
+                    }
+                )
+                    .then(resp => {
+                        //console.log(resp)
+                        switch (resp.data.role) {
+                            case 'CUSTOMER':
+                                //navigate to customer dashboard
+                                navigate("/customer")
+                                break;
+                            case 'VENDOR':
+                                //navigate to vendor dashboard
+                                break;
+                            case 'ADMIN':
+                                //navigate to executive dashboard
+                                break;
+                            default:
+                                break;
+                        }
+                    })
+                    .catch(err => {
+                        setMsgUsername("Invalid Credentials")
+                        console.log(err)
+                    })
+            })
+            .catch(err => {
+                setMsgUsername("Invalid Credentials")
+                console.log(err)
+            })
+
     }
 
     return (

@@ -46,7 +46,7 @@ public class AuthController {
 		return authService.signUp(user);
 	}
 	
-	@PostMapping("/login")
+	@GetMapping("/login")
 	public UserDetails login(Principal principal) {
 		/* Make this login as Authenticated API 
 		 * If this method is called, it means that Spring Filter alreeady

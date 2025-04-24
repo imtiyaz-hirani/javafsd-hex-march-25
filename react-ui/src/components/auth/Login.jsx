@@ -2,6 +2,7 @@ import { useState } from "react";
 import users from '../../data/users.js'
 import CustomerDashboard from "../customer/CustomerDashboard.jsx";
 import { useNavigate } from "react-router";
+import axios from "axios";
 
 function Login() {
     const [username, setUsername] = useState(null);
@@ -11,7 +12,7 @@ function Login() {
     const [userData, setUserData] = useState(users);
     const navigate = useNavigate();
 
-    const login = () => {
+    const login = async () => {
         let isCorrect = false;
 
         if (username === null || username === "" || username === undefined) {
@@ -31,28 +32,46 @@ function Login() {
         }
 
         //check username password by calling API else use file data 
-        userData.forEach(u => {
-            if (u.username === username && u.password === password) {
-                isCorrect = true
-                switch (u.role) {
-                    case 'CUSTOMER':
-                        //navigate to customer dashboard
-                        navigate("/customer")
-                        break;
-                    case 'VENDOR':
-                        //navigate to vendor dashboard
-                        break;
-                    case 'EXECUTIVE':
-                        //navigate to executive dashboard
-                        break;
-                    default:
-                        break;
-                }
-            }
-            if (isCorrect === false) {
-                setMsgUsername("Invalid Credentials")
-            }
-        });
+
+        let body = {
+            'username': username,
+            'password': password
+        }
+
+        try {
+            const response = await axios.post('http://localhost:8081/api/auth/token/generate', body);
+            //console.log(response)
+            let token = response.data.token
+            //save the token in localstorage memory of web browser 
+            localStorage.setItem('token', token)
+            localStorage.setItem('username', username)
+        }
+        catch (err) {
+            setMsgUsername("Invalid Credentials")
+
+        }
+        // userData.forEach(u => {
+        //     if (u.username === username && u.password === password) {
+        //         isCorrect = true
+        //         switch (u.role) {
+        //             case 'CUSTOMER':
+        //                 //navigate to customer dashboard
+        //                 navigate("/customer")
+        //                 break;
+        //             case 'VENDOR':
+        //                 //navigate to vendor dashboard
+        //                 break;
+        //             case 'EXECUTIVE':
+        //                 //navigate to executive dashboard
+        //                 break;
+        //             default:
+        //                 break;
+        //         }
+        //     }
+        //     if (isCorrect === false) {
+        //         setMsgUsername("Invalid Credentials")
+        //     }
+        // });
     }
 
     return (
@@ -61,9 +80,9 @@ function Login() {
 
                 <div className="row mb-4">
                     <div className="col-lg-12">
-                        <nav class="navbar navbar-light bg-light">
-                            <div class="container-fluid">
-                                <span class="navbar-brand mb-0 h1">Navbar</span>
+                        <nav className="navbar navbar-light bg-light">
+                            <div className="container-fluid">
+                                <span className="navbar-brand mb-0 h1">Navbar</span>
                             </div>
                         </nav>
                     </div>
@@ -78,7 +97,7 @@ function Login() {
                             <div className="card-header">
                                 Login
                             </div>
-                            <div class="card-body">
+                            <div className="card-body">
                                 {
                                     msgUsername === null ? "" : <div className="mb-4">
                                         {msgUsername}
@@ -106,7 +125,8 @@ function Login() {
                                         }} />
                                 </div>
                                 <div className="mb-4">
-                                    <button type="button" class="btn btn-primary" onClick={() => login()}>Login</button>
+                                    <button type="button" className="btn btn-primary"
+                                        onClick={() => login()}>Login</button>
                                 </div>
                             </div>
                             <div className="card-footer">

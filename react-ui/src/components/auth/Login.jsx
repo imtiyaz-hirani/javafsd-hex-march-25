@@ -1,7 +1,7 @@
 import { useState } from "react";
 import users from '../../data/users.js'
 import CustomerDashboard from "../customer/CustomerDashboard.jsx";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import axios from "axios";
 
 function Login() {
@@ -37,7 +37,6 @@ function Login() {
             'username': username,
             'password': password
         }
-
 
         axios.post('http://localhost:8081/api/auth/token/generate', body)
             .then(response => {
@@ -140,7 +139,9 @@ function Login() {
                                 </div>
                             </div>
                             <div className="card-footer">
-                                Don't have an Account? Sign Up <br />
+                                Don't have an Account? <br />
+                                <Link to="/customer/signup"> Sign Up as Customer </Link> <br />
+                                Sign Up as Seller <br />
                                 Reset Password
                             </div>
                         </div>

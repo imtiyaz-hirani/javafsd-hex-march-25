@@ -25,7 +25,7 @@ public class AuthService {
 		}
 		/*Give role USER_DEFAULT if not provided */
 		if(user.getRole() == null)
-			user.setRole("USER_DEFAULT");
+			user.setRole(user.getRole());
 		
 		//encode the password 
 		String encodedPass = bcrypt.encode(user.getPassword());

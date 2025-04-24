@@ -28,7 +28,17 @@ public class CustomerService {
 	@Autowired
 	private AuthService authService;
 	
-	public Customer addCustomer(Customer customer) {
+	public Customer addCustomer(Customer customer) throws InvalidUsernameException {
+		/* extract user from customer  */
+		User user = customer.getUser();
+		//set the role
+		user.setRole("CUSTOMER");
+		//save user in DB
+		user = authService.signUp(user);
+		
+		//attach saved user to customer 
+		customer.setUser(user);
+		
 		return customerRepository.save(customer);
 	}
 

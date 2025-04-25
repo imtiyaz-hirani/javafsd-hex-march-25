@@ -11,15 +11,15 @@ import jakarta.persistence.OneToOne;
 public class Vendor {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private int id; //findById
 	
 	@Column(nullable = false)
-	private String name;
+	private String name; //findByName(String name)
 	
-	private String city;
+	private String city; //findByCity(String city)
 
 	@OneToOne
-	private User user; 
+	private User user; //findByUserUsername(String username)
 	
 	public int getId() {
 		return id;

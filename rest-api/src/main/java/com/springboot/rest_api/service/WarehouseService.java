@@ -1,5 +1,6 @@
 package com.springboot.rest_api.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,11 @@ public class WarehouseService {
 		if(optional.isEmpty())
 			throw new InvalidIDException("warehouse Id invalid...");
 		return optional.get();
+	}
+
+	public List<Warehouse> getAll() {
+		 
+		return warehouseRepository.findAll();
 	}
 
 }

@@ -1,7 +1,7 @@
 package com.springboot.rest_api.controller;
 
 import java.io.IOException;
-import java.util.Arrays;
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,9 +49,9 @@ public class ProductController {
 	@Autowired
 	private MessageResponseDto dto;
 	
-	@PostMapping("/add/{catId}/{vid}/{wid}")
+	@PostMapping("/add/{catId}/{wid}")
 	public Product addProduct(@PathVariable int catId, 
-						   @PathVariable int vid,
+						  Principal principal,
 						   @PathVariable int wid,
 						   @RequestBody Product product) throws InvalidIDException {
 		
@@ -59,7 +59,7 @@ public class ProductController {
 		Category category = categoryService.getById(catId);
 		
 		/* Fetch vendor object based on vid -- if not Throw InvalidIDException*/
-		Vendor vendor = vendorService.getById(vid);
+		Vendor vendor = vendorService.getByUsername(principal.getName());
 		
 		/* Fetch warehouse object based on wid -- if not Throw InvalidIDException*/
 		Warehouse warehouse =  warehouseService.getById(wid);

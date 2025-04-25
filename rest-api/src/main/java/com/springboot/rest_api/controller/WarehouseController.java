@@ -1,6 +1,10 @@
 package com.springboot.rest_api.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,6 +19,7 @@ import com.springboot.rest_api.service.WarehouseService;
 
 @RestController
 @RequestMapping("/api/warehouse")
+@CrossOrigin(origins = {"http://localhost:5173/"})
 public class WarehouseController {
 
 	@Autowired
@@ -34,5 +39,10 @@ public class WarehouseController {
 		
 		/*Save warehouse object */
 		return warehouseService.save(warehouse);
+	}
+	
+	@GetMapping("/all")
+	public List<Warehouse> getAll(){
+		return warehouseService.getAll();
 	}
 }

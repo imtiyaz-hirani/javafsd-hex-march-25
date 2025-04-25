@@ -43,7 +43,8 @@ public class SecurityConfig {
 				.requestMatchers("/api/customer/batch-insert").hasAnyAuthority("ADMIN","USER")
 				.requestMatchers("/api/review/add/{pid}").hasAuthority("CUSTOMER")
 				.requestMatchers("/api/customer/product/purchase/{cid}/{pid}").permitAll()
-				
+				.requestMatchers("/api/product/add/{catId}/{wid}").hasAuthority("VENDOR")
+
 				.anyRequest().permitAll()
 			)
 			.sessionManagement(session-> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

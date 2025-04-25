@@ -45,4 +45,9 @@ public class VendorService {
 		
 		return optional.get();
 	}
+
+	public Vendor getByUsername(String username) {
+		 
+		return vendorRepository.findByUserUsername(username);
+	}
 }

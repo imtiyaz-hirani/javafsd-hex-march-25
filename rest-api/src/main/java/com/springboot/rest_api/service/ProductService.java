@@ -63,7 +63,7 @@ public class ProductService {
 		}
 		
 		
-		String uploadPath= "D:\\fsd hex java march 2025\\rest-api\\uploads";
+		String uploadPath= "D:\\fsd hex java march 2025\\react-ui\\public\\images";
 		
 		/*Create directory *///Check if directory is present else create it
 		Files.createDirectories(Paths.get(uploadPath));

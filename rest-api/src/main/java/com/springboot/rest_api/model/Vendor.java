@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class Vendor {
@@ -17,6 +18,9 @@ public class Vendor {
 	
 	private String city;
 
+	@OneToOne
+	private User user; 
+	
 	public int getId() {
 		return id;
 	}
@@ -39,6 +43,14 @@ public class Vendor {
 
 	public void setCity(String city) {
 		this.city = city;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	} 
 	
 	

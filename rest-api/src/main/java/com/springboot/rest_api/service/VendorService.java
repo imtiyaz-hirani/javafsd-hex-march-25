@@ -7,7 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.springboot.rest_api.exception.InvalidIDException;
-import com.springboot.rest_api.model.Category;
+import com.springboot.rest_api.exception.InvalidUsernameException;
+import com.springboot.rest_api.model.User;
 import com.springboot.rest_api.model.Vendor;
 import com.springboot.rest_api.repository.VendorRepository;
 
@@ -16,8 +17,20 @@ public class VendorService {
 
 	@Autowired
 	private VendorRepository vendorRepository;
+	@Autowired
+	private AuthService authService;
 	
-	public Vendor add(Vendor vendor) {
+	public Vendor add(Vendor vendor) throws InvalidUsernameException {
+		//fetch user details and save it in DB 
+		User user = vendor.getUser();
+		//set user the role of VENDOR
+		user.setRole("VENDOR");
+		
+		user  = authService.signUp(user);
+		
+		//attach user back to vendor 
+		vendor.setUser(user);
+		
 		return vendorRepository.save(vendor);
 	}
  

@@ -114,7 +114,7 @@ public class CustomerController {
 	 * */
 	@PutMapping("/api/customer/update/{id}")
 	public ResponseEntity<?> updateCustomer(@PathVariable int id , 
-								@RequestBody Customer newValue) {
+								@RequestBody Customer newValue) throws InvalidUsernameException {
 		//verify the id given and fetch existing record
 		try {
 			Customer customer = customerService.getSingleCustomer(id);

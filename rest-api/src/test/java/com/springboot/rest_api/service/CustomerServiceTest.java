@@ -23,6 +23,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.web.ErrorResponse;
 
 import com.springboot.rest_api.exception.InvalidContactException;
+import com.springboot.rest_api.exception.InvalidUsernameException;
 import com.springboot.rest_api.model.Customer;
 import com.springboot.rest_api.model.User;
 import com.springboot.rest_api.repository.CustomerRepository;
@@ -82,7 +83,7 @@ public class CustomerServiceTest {
 	}
 	
 	@Test
-	public void addCustomerTest() {
+	public void addCustomerTest() throws InvalidUsernameException {
 		when(customerRepository.save(c3)).thenReturn(c33);
 		//use case 1: count - 1
 		assertEquals(c33, customerService.addCustomer(c3));

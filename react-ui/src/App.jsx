@@ -3,6 +3,7 @@ import Login from "./components/auth/Login"
 import CustomerDashboard from "./components/customer/CustomerDashboard"
 import CustomerProducts from "./components/customer/products"
 import CustomerSignUp from "./components/customer/signup"
+import VendorDashboard from "./components/vendor/VendorDashboard"
 
 function App() { //app is a component and a component must have a return 
 
@@ -11,6 +12,8 @@ function App() { //app is a component and a component must have a return
       <Route index path="" element={<Login />} />
       <Route path="/customer/signup" element={<CustomerSignUp />} />
       <Route path="customer" element={<CustomerDashboard />} />
+      <Route path="vendor" element={<VendorDashboard />} />
+
       <Route path="product/:cid/:cname" element={<CustomerProducts />} />
     </Routes>
   )

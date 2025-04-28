@@ -55,11 +55,13 @@ function Login() {
                     }
                 )
                     .then(resp => {
+
                         //console.log(resp)
                         switch (resp.data.role) {
                             case 'CUSTOMER':
                                 //navigate to customer dashboard
                                 navigate("/customer")
+
                                 break;
                             case 'VENDOR':
                                 //navigate to vendor dashboard

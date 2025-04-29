@@ -86,11 +86,11 @@ public class ProductService {
 		Map<String,Integer> map= new HashMap<>();
 		//Fetch All Products 
 		List<Product> list =  productRepository.findAll();
-		System.out.println(list);
+		//System.out.println(list);
 		//fetch all categories from product
-		List<Category> listCat =  list.stream().map(p->p.getCategory()).distinct().toList();
-		 
+		List<Category> listCat =  list.stream().map(p->p.getCategory()).distinct().toList();		 
 		for(Category cat : listCat) {
+			//count number fo products for each category 
 			int num = (int)list.stream().filter(p->p.getCategory().getId() == cat.getId()).count();
 			map.put(cat.getName(), num); 
 		}
@@ -101,14 +101,26 @@ public class ProductService {
 		barChartDto.setNumData(numData);
 		
 		return barChartDto; 
-		//count number fo products for each category 
-		
 		//generate o/p in following format 
-		
-		/*
-		 *  [{"mobiles" : 3} , {"laptops" : 5}, {"printers" : 4}]
-		 *  
+		/** 
+		 * {
+		    "labels": [
+		        "printers",
+		        "headphones",
+		        "mobile",
+		        "laptop"
+		    ],
+		    "numData": [
+		        2,
+		        1,
+		        3,
+		        1
+		    ]
+		}
 		 * */
+				 
+		
+		
 		
 	}
 

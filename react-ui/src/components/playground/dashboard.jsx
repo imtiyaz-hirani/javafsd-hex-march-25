@@ -60,7 +60,7 @@ function ChartDashboard() {
 
                         </div>
                         <div className="card-body">
-                            <Chart type="pie" data={chartData} className="w-full md:w-20rem" />
+                            <Chart type="bar" data={chartData} className="w-full md:w-20rem" />
                         </div>
 
                     </div>

@@ -10,6 +10,7 @@ import { useEffect } from "react"
 import fetchAlbums from "./store/actions/albumActions"
 import AlbumList from "./components/playground/albums"
 import ChartDashboard from "./components/playground/dashboard"
+import Post from "./components/playground/posts"
 
 function App() { //app is a component and a component must have a return 
 
@@ -27,6 +28,7 @@ function App() { //app is a component and a component must have a return
       <Route path="users" element={<UserList />} />
       <Route path="albums" element={<AlbumList />} />
       <Route path="chart-dashboard" element={<ChartDashboard />} />
+      <Route path="posts" element={<Post />} />
       <Route path="product/:cid/:cname" element={<CustomerProducts />} />
     </Routes>
   )

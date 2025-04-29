@@ -6,14 +6,19 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.springboot.rest_api.dto.BarChartDto;
 import com.springboot.rest_api.exception.InvalidIDException;
 import com.springboot.rest_api.model.Category;
 import com.springboot.rest_api.model.Product;
@@ -28,7 +33,8 @@ public class ProductService {
 	
 	@Autowired
 	private CategoryRepository categoryRepository; 
-	
+	@Autowired
+	private BarChartDto barChartDto;
 	public Product add(Product product) {
 		return productRepository.save(product);
 	}
@@ -74,6 +80,36 @@ public class ProductService {
 		/*Save this path in Db */
 		product.setImageUrl(path.toString());
 		return productRepository.save(product);
+	}
+
+	public BarChartDto getBarChartData() {
+		Map<String,Integer> map= new HashMap<>();
+		//Fetch All Products 
+		List<Product> list =  productRepository.findAll();
+		System.out.println(list);
+		//fetch all categories from product
+		List<Category> listCat =  list.stream().map(p->p.getCategory()).distinct().toList();
+		 
+		for(Category cat : listCat) {
+			int num = (int)list.stream().filter(p->p.getCategory().getId() == cat.getId()).count();
+			map.put(cat.getName(), num); 
+		}
+		Set<String> labels = map.keySet();
+		Collection<Integer> numData =  map.values();
+		
+		barChartDto.setLabels(labels);
+		barChartDto.setNumData(numData);
+		
+		return barChartDto; 
+		//count number fo products for each category 
+		
+		//generate o/p in following format 
+		
+		/*
+		 *  [{"mobiles" : 3} , {"laptops" : 5}, {"printers" : 4}]
+		 *  
+		 * */
+		
 	}
 
 }

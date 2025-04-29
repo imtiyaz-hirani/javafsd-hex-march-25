@@ -107,6 +107,13 @@ public class Product {
 
 	public void setWarehouse(Warehouse warehouse) {
 		this.warehouse = warehouse;
+	}
+
+	@Override
+	public String toString() {
+		return "Product [id=" + id + ", title=" + title + ", shortDescription=" + shortDescription + ", description="
+				+ description + ", imageUrl=" + imageUrl + ", price=" + price + ", category=" + category + ", vendor="
+				+ vendor + ", warehouse=" + warehouse + "]";
 	}  
 	
 	

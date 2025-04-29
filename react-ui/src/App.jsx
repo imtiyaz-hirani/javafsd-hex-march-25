@@ -9,6 +9,7 @@ import { useDispatch } from "react-redux"
 import { useEffect } from "react"
 import fetchAlbums from "./store/actions/albumActions"
 import AlbumList from "./components/playground/albums"
+import ChartDashboard from "./components/playground/dashboard"
 
 function App() { //app is a component and a component must have a return 
 
@@ -25,6 +26,7 @@ function App() { //app is a component and a component must have a return
       <Route path="vendor" element={<VendorDashboard />} />
       <Route path="users" element={<UserList />} />
       <Route path="albums" element={<AlbumList />} />
+      <Route path="chart-dashboard" element={<ChartDashboard />} />
       <Route path="product/:cid/:cname" element={<CustomerProducts />} />
     </Routes>
   )

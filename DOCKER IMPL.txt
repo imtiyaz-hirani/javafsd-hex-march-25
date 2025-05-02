@@ -1,0 +1,71 @@
+DOCKER IMPL
+===============
+
+Setting up Linux as Docker Image 
+
+1. Signup and login to Docker Hub 
+2. Pull alpine(docker image for linux)
+3. start the image(container) and type commands 
+
+
+
+C:\>docker -v
+C:\>docker login
+C:\>docker pull alpine
+C:\>docker images
+C:\>docker container create -it --name myalpinecontainer alpine
+C:\>docker ps
+C:\>docker start myalpinecontainer
+C:\>docker ps
+CONTAINER ID   IMAGE     COMMAND     CREATED              STATUS          PORTS     NAMES
+9faf128aaf31   alpine    "/bin/sh"   About a minute ago   Up 15 seconds             myalpinecontainer
+
+C:\>docker run -it a8560b36e8b8 /bin/sh
+/ #
+/ # ls
+/ # touch myFile.sh
+/ # ls
+/ # echo "hey my file" >> myFile.sh
+/ # cat myFile.sh
+hey my file
+
+/ # exit
+
+Creating Docker image of spring boot app 
+========================================
+- Build the app and generate a jar file. 
+- Create a Dockerfile n root location of the project and add following lines:
+
+FROM openjdk:21
+EXPOSE 8080
+ADD target/rest-app-0.0.1-SNAPSHOT.jar rest-app-0.0.1-SNAPSHOT.jar
+ENTRYPOINT ["java","-jar","/rest-app-0.0.1-SNAPSHOT.jar"]
+
+- Go to your Dockerfile location , open CMD and type 
+docker build -t backend-image-v1 .
+This will build your apps' docker image 
+
+-  docker images
+REPOSITORY                                   TAG       IMAGE ID       CREATED          SIZE
+backend-image-v1                             latest    2e7c0003e19c   21 seconds ago   819MB
+
+
+-- Run this image using command 
+
+docker run -p 9090:8080 backend-image-v1
+
+and test your APIs. They will work. ctrl+c to terminate the app 
+
+
+- Now push this image on docker hub for others to take a pull. 
+ 
+1. first tag it to your name, so that this images gets displayed in your docker repository 
+
+C:\>docker tag backend-image-v1 imtiyazhirani/backend-image-v1
+
+REPOSITORY                                   TAG       IMAGE ID       CREATED          SIZE
+imtiyazhirani/backend-image-v1               latest    2e7c0003e19c   30 minutes ago   819MB
+
+2. push it to hub 
+C:\>docker push imtiyazhirani/backend-image-v1
+

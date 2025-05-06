@@ -26,7 +26,7 @@ import com.springboot.rest_api.service.MyUserService;
 
 @RestController
 @RequestMapping("/api/auth")
-@CrossOrigin(origins = {"http://localhost:5173"})
+//@CrossOrigin(origins = {"http://localhost:5173"})
 public class AuthController {
 
 	@Autowired
